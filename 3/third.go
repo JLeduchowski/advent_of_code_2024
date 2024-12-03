@@ -15,21 +15,21 @@ func main() {
 		log.Fatal(err)
 	}
 	inputString := string(input)
-	// inputStringTest := inputString
-	// splittedString := strings.Split(inputStringTest, "don't()")
-	// var validMuls strings.Builder
-	// validMuls.WriteString(splittedString[0])
-	// for i := 0; i < len(splittedString); i++ {
-	// 	splittedDos := splittedString[i]
-	// 	if len(splittedDos) > 1{
-	// 		for j := 1; j < len(splittedDos); j++ {
-	// 			validMuls.WriteString(string(splittedDos[j]))
-	// 		}
-	// 	}
-	// }
+	inputStringTest := inputString
+	splittedString := strings.Split(inputStringTest, "don't()")
+	var validMuls strings.Builder
+	validMuls.WriteString(splittedString[0])
+	for i := 1; i < len(splittedString); i++ {
+		splittedDos := strings.Split(splittedString[i], "do()")
+		if len(splittedDos) > 1 {
+			for j := 1; j < len(splittedDos); j++ {
+				validMuls.WriteString(string(splittedDos[j]))
+			}
+		}
+	}
 	var sum int
 	r := regexp.MustCompile(`mul\(\d{1,3},\d{1,3}\)`)
-	matches := r.FindAllString(inputString, -1)
+	matches := r.FindAllString(validMuls.String(), -1)
 	for i := 0; i < len(matches); i++ {
 		match := matches[i]
 		splitted := strings.Split(match, ",")
